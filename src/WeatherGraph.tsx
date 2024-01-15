@@ -21,7 +21,6 @@ const WeatherGraph = () => {
       },
       userDecisionTimeout: 7000,
     });
-  console.log(import.meta.env.WEATHER_API_KEY)
 
   const URL = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API_KEY}=${coords?.latitude},${coords?.longitude}&days=7&aqi=no&alerts=no`;
 
@@ -32,6 +31,9 @@ const WeatherGraph = () => {
         const response = await fetch(URL);
         const weatherData = await response.json();
         const modifiedData = weatherData.forecast.forecastday;
+        // I know the "any" type for "day" doesn't look great, but the object itself is quite large 
+        // and I decided against typing it out by hand, given the fact it's not a production-ready project
+        // https://www.weatherapi.com/docs/#apis-forecast
         modifiedData.forEach((day: { date_epoch: number; day: any }) => {
           dayTemps.push({
             date: day.date_epoch * 1000,
@@ -40,7 +42,7 @@ const WeatherGraph = () => {
           });
         });
         setWeatherData(dayTemps);
-      } catch (error: any) {
+      } catch (error: unknown) {
         console.error(error);
       }
     };

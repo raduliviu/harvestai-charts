@@ -1,30 +1,26 @@
-# React + TypeScript + Vite
+# HarvestAI Coding Challenge
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is my solution to the HarvestAI coding challenge. The task required building two features:
 
-Currently, two official plugins are available:
+- A dynamic bar chart, with an associated button where the user can enter the values to be represented on the chart
+- A weather forecast line graph, which shows the weather forecast for the week based on the user's location
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to run
 
-## Expanding the ESLint configuration
+EITHER
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- clone the repository locally, go to [weatherapi.com](https://www.weatherapi.com/) to obtain an API key, then create a `.env` file in the root of the project directory, and put in the value `VITE_WEATHER_API_KEY={YOURKEY}`, then run `npm i` to install all dependencies and finally `npm run dev` to run it locally
 
-- Configure the top-level `parserOptions` property like this:
+OR
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+- Experience it online, [here](https://raduliviu.github.io/harvestai-charts/) 😁
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tools used
+
+This task was solved using:
+
+- [React](https://react.dev/)
+- Weather forecast data from the [weatherapi.com](https://www.weatherapi.com/) API
+- [react-geolocated](https://github.com/no23reason/react-geolocated), for a very easy and lightweight way to obtain the user's coordinates (and especially useful for displaying messages if the user's browser does not support Geolocation or if Geolocation is not enabled)
+- [MaterialUI](https://mui.com/material-ui/getting-started/), for various UI components
+- [MaterialUI Charts](https://mui.com/x/react-charts/), for displaying the actual charts
