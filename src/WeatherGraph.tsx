@@ -22,32 +22,36 @@ const WeatherGraph = () => {
       userDecisionTimeout: 7000,
     });
 
-  const URL = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API_KEY}=${coords?.latitude},${coords?.longitude}&days=7&aqi=no&alerts=no`;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const dayTemps: DayTemps[] = [];
-        const response = await fetch(URL);
-        const weatherData = await response.json();
-        const modifiedData = weatherData.forecast.forecastday;
-        // I know the "any" type for "day" doesn't look great, but the object itself is quite large 
-        // and I decided against typing it out by hand, given the fact it's not a production-ready project
-        // https://www.weatherapi.com/docs/#apis-forecast
-        modifiedData.forEach((day: { date_epoch: number; day: any }) => {
-          dayTemps.push({
-            date: day.date_epoch * 1000,
-            maxTemp: day.day.maxtemp_c,
-            minTemp: day.day.mintemp_c,
-          });
-        });
-        setWeatherData(dayTemps);
+        if (coords) {
+          const URL = `https://api.weatherapi.com/v1/forecast.json?key=${
+            import.meta.env.VITE_WEATHER_API_KEY
+          }=${coords?.latitude},${coords?.longitude}&days=7&aqi=no&alerts=no`;
+          const dayTemps: DayTemps[] = [];
+          const response = await fetch(URL);
+          const weatherData = await response.json();
+          // I know the "any" type for "day" doesn't look great, but the object itself is quite large
+          // and I decided against typing it out by hand, given the fact it's not a production-ready project
+          // https://www.weatherapi.com/docs/#apis-forecast
+          weatherData.forecast.forecastday.forEach(
+            (day: { date_epoch: number; day: any }) => {
+              dayTemps.push({
+                date: day.date_epoch * 1000,
+                maxTemp: day.day.maxtemp_c,
+                minTemp: day.day.mintemp_c,
+              });
+            }
+          );
+          setWeatherData(dayTemps);
+        }
       } catch (error: unknown) {
         console.error(error);
       }
     };
     fetchData();
-  }, [URL]);
+  }, [coords]);
 
   const minTemps: number[] = [];
   const maxTemps: number[] = [];
