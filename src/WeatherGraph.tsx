@@ -23,7 +23,7 @@ const WeatherGraph = () => {
     });
   console.log(import.meta.env.WEATHER_API_KEY)
 
-  const URL = `http://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API_KEY}=${coords?.latitude},${coords?.longitude}&days=7&aqi=no&alerts=no`;
+  const URL = `https://api.weatherapi.com/v1/forecast.json?key=${import.meta.env.VITE_WEATHER_API_KEY}=${coords?.latitude},${coords?.longitude}&days=7&aqi=no&alerts=no`;
 
   useEffect(() => {
     const fetchData = async () => {
